@@ -5,6 +5,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Driver and Store Management'),
+        bottom: const TabBar(
+          tabs: [
+            Tab(text: 'Drivers'),
+            Tab(text: 'Stores'),
+          ],
+        ),
+      ),
+    );
   }
 }

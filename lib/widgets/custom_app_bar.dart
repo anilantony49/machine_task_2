@@ -21,7 +21,7 @@ class CustomAppbar {
         delay: const Duration(milliseconds: 400),
         duration: const Duration(milliseconds: 1000),
         child: const Text(
-          'Tweel.',
+          '',
           style: TextStyle(
             fontSize: 24,
           ),

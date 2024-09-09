@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_2/signin_field_widget.dart';
-import 'package:machine_task_2/user_sign_in/widgets/widgets.dart';
+import 'package:machine_task_2/user_sign_up/widget/signup_one_field_widget.dart';
+import 'package:machine_task_2/user_sign_up/widget/widgets.dart';
 import 'package:machine_task_2/widgets/custom_app_bar.dart';
 
-class UserSignInPage extends StatefulWidget {
-  const UserSignInPage({super.key});
+class UserSignUpPageOne extends StatefulWidget {
+  const UserSignUpPageOne({super.key});
 
   @override
-  State<UserSignInPage> createState() => _UserSignInPageState();
+  State<UserSignUpPageOne> createState() => _UserSignUpPageOneState();
 }
 
-class _UserSignInPageState extends State<UserSignInPage> {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey();
+class _UserSignUpPageOneState extends State<UserSignUpPageOne> {
   @override
   Widget build(BuildContext context) {
+    final mediaHeight = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         extendBodyBehindAppBar: true,
-        appBar: CustomAppbar.show(context, false),
+        appBar: CustomAppbar.show(context, true),
         body: SingleChildScrollView(
           child: Container(
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+            constraints: BoxConstraints(minHeight: mediaHeight),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 40, 0, 30),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  const SignInFieldWidget(),
+                  const SignUpOneFieldWidget(),
                   Positioned(
                     bottom: 0,
-                    child: SignInWidgets.signUpNavigate(context),
-                  )
+                    child: SignUpWidgets.signInNavigate(context),
+                  ),
                 ],
               ),
             ),

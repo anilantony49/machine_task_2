@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:machine_task_2/home_page.dart';
 import 'package:machine_task_2/on_boarding_page.dart';
 import 'package:machine_task_2/splash_screen.dart';
+import 'package:machine_task_2/user_sign_in_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnBoardingPage(),
+      home: const HomePage(),
     );
   }
 }
