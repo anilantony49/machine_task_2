@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:machine_task_2/alerts_and_navigate.dart';
-import 'package:machine_task_2/main_page.dart';
+import 'package:machine_task_2/home_page.dart';
 import 'package:machine_task_2/on_boarding_page.dart';
 import 'package:machine_task_2/shared_preference.dart';
 import 'package:machine_task_2/user_sign_in_page.dart';
@@ -45,14 +45,14 @@ class _SplashPageState extends State<SplashPage> {
     final userOnInitial = await UserAuthStatus.isUserOnInitial();
     final userSignIn = await UserAuthStatus.getUserStatus();
     if (userOnInitial == false) {
-      nextScreen(context,  OnBoardingPage());
+      nextScreen(context,  const OnBoardingPage());
     } else {
       if (userSignIn == false) {
         await Future.delayed(2500.ms);
         nextScreenRemoveUntil(context, const UserSignInPage());
       } else {
         await Future.delayed(2500.ms);
-        nextScreenRemoveUntil(context, const MainPage());
+        nextScreenRemoveUntil(context, const HomePage());
       }
     }
   }
