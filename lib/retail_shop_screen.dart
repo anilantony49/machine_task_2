@@ -25,7 +25,7 @@ class _RetailShopScreenState extends State<RetailShopScreen> {
 
   void fetchStore() async {
     List<StoreModels> fetchedItems =
-        await RetailShopDb.singleton.getretailShops();
+        await StoreDb.singleton.getStore();
     setState(() {
       stores = fetchedItems;
     });
@@ -236,16 +236,16 @@ class _RetailShopScreenState extends State<RetailShopScreen> {
                       }
 
                       if (store == null) {
-                        await RetailShopDb.singleton.addretailShop(newShop);
+                        await StoreDb.singleton.addStore(newShop);
                       } else {
-                        await RetailShopDb.singleton
-                            .editretailShop(newShop, newShop.id);
+                        await StoreDb.singleton
+                            .editStore(newShop, newShop.id);
                       }
                       // widget.refreshDrivers();
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Driver details add succesfully'),
+                          content: Text('Store details add succesfully'),
                           duration: Duration(seconds: 2),
                         ),
                       );
@@ -286,7 +286,7 @@ class _RetailShopScreenState extends State<RetailShopScreen> {
             ElevatedButton(
               onPressed: () async {
                 // Perform the delete operation
-                await RetailShopDb.singleton.deleteretailShop(store.id);
+                await StoreDb.singleton.deleteStore(store.id);
 
                 // widget.refreshDrivers(); // Refresh the list after deletion
                 Navigator.of(context).pop();

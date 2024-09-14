@@ -10,26 +10,14 @@ class TabViewItems extends StatefulWidget {
   State<TabViewItems> createState() => _TabViewItemsState();
 }
 
-
-
 class _TabViewItemsState extends State<TabViewItems> {
-
-
   @override
   Widget build(BuildContext context) {
     return const Expanded(
       child: TabBarView(
         children: [
-          Column(
-            children: [
-              DriverListScreen(
-               
-              ),
-            ],
-          ),
-          RetailShopScreen(
-          
-          ),
+          DriverListScreen(),
+          RetailShopScreen(),
           // Icon(Icons.directions_car, size: 350),
         ],
       ),

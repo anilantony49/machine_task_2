@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        RouteManagementPage(), // Navigate to NewPage
+                        const RouteManagementPage(), // Navigate to NewPage
                   ),
                 );
               },
@@ -36,14 +36,10 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: const [
-          Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              TabViewWidget()
-            ],
-          )
+          SizedBox(
+            height: 20,
+          ),
+          TabViewWidget()
         ],
       ),
     );

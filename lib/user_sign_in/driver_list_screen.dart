@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:machine_task_2/db/driver_db.dart';
-import 'package:machine_task_2/tab_view_items.dart';
 
 import '../models/driver.dart';
 

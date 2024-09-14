@@ -2,70 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:machine_task_2/models/store.dart';
 
-const _dbName = 'retailShopBox';
+const _dbName = 'storeBox';
 
-abstract class RetailShopDbFunctions {
-  Future<List<StoreModels>> getretailShops();
-  Future<void> addretailShop(StoreModels value);
-  Future<void> deleteretailShop(String retailShopId);
-  Future<StoreModels?> getCurrentretailShop(String retailShopId);
-  Future<void> editretailShop(StoreModels value, String retailShopId);
-  Future<bool?> retailShopExists(String retailShopName);
+abstract class StoreDbFunctions {
+  Future<List<StoreModels>> getStore();
+  Future<void> addStore(StoreModels value);
+  Future<void> deleteStore(String storeId);
+  Future<StoreModels?> getCurrentStore(String storeId);
+  Future<void> editStore(StoreModels value, String storeId);
+  Future<bool?> storeExists(String storeName);
 }
 
-class RetailShopDb implements RetailShopDbFunctions {
-  ValueNotifier<List<StoreModels>> retailShopNotifier = ValueNotifier([]);
+class StoreDb implements StoreDbFunctions {
+  ValueNotifier<List<StoreModels>> storeNotifier = ValueNotifier([]);
 
-  RetailShopDb._internal();
-  static final RetailShopDb singleton = RetailShopDb._internal();
+  StoreDb._internal();
+  static final StoreDb singleton = StoreDb._internal();
 
-  factory RetailShopDb() {
+  factory StoreDb() {
     return singleton;
   }
 
   Future<void> refresh() async {
-    final allCountry = await getretailShops();
-    retailShopNotifier.value = List.from(allCountry);
+    final allStore = await getStore();
+    storeNotifier.value = List.from(allStore);
   }
 
   @override
-  Future<void> addretailShop(StoreModels value) async {
+  Future<void> addStore(StoreModels value) async {
     final db = await Hive.openBox<StoreModels>(_dbName);
     await db.put(value.id, value);
     refresh();
   }
 
   @override
-  Future<void> deleteretailShop(String retailShopId) async {
+  Future<void> deleteStore(String retailShopId) async {
     final db = await Hive.openBox<StoreModels>(_dbName);
     await db.delete(retailShopId);
   }
 
   @override
-  Future<bool?> retailShopExists(String retailShopName) async {
+  Future<bool?> storeExists(String storeName) async {
     final db = await Hive.openBox<StoreModels>(_dbName);
-    final List<StoreModels> allUsers = db.values.toList();
+    final List<StoreModels> allStores = db.values.toList();
 
     // Check if any user has the provided username
-    return allUsers.any((user) => user.name == retailShopName);
+    return allStores.any((user) => user.name == storeName);
   }
 
   @override
-  Future<void> editretailShop(StoreModels value, String retailShopId) async {
+  Future<void> editStore(StoreModels value, String storeId) async {
     final db = await Hive.openBox<StoreModels>(_dbName);
-    await db.put(retailShopId, value);
+    await db.put(storeId, value);
     refresh();
   }
 
   @override
-  Future<StoreModels?> getCurrentretailShop(String retailShopId) async {
+  Future<StoreModels?> getCurrentStore(String storeId) async {
     final db = await Hive.openBox<StoreModels>(_dbName);
-    final user = db.get(retailShopId);
+    final user = db.get(storeId);
     return user;
   }
 
   @override
-  Future<List<StoreModels>> getretailShops() async {
+  Future<List<StoreModels>> getStore() async {
     final db = await Hive.openBox<StoreModels>(_dbName);
     return db.values.toList();
   }
