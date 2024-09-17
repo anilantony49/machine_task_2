@@ -11,13 +11,13 @@ class SignUpTwoFieldWidget extends StatefulWidget {
     required this.email,
     required this.phoneNo,
     required this.fullName,
-    required this.accountType,
+    // required this.accountType,
   });
 
   final String email;
   final String phoneNo;
   final String fullName;
-  final String accountType;
+  // final String accountType;
 
   @override
   State<SignUpTwoFieldWidget> createState() => _SignUpTwoFieldWidgetState();

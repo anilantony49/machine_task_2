@@ -1,8 +1,15 @@
+import 'dart:developer';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:machine_task_2/alerts_and_navigate.dart';
 import 'package:machine_task_2/constants.dart';
+import 'package:machine_task_2/driver_home_page.dart';
+import 'package:machine_task_2/home_page.dart';
+import 'package:machine_task_2/services/authentication.dart';
+import 'package:machine_task_2/sign_in_screen.dart';
 import 'package:machine_task_2/user_sign_up/widget/user_signup_two.dart';
+import 'package:machine_task_2/validations.dart';
 import 'package:machine_task_2/widgets/custom_btn.dart';
 import 'package:machine_task_2/widgets/custom_txt_form_field.dart';
 
@@ -16,9 +23,32 @@ class SignUpOneFieldWidget extends StatefulWidget {
 class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController accountTypeController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
+  bool isLoading = false;
+  final _auth = AuthService();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    fullnameController.dispose();
+    super.dispose();
+  }
+
+  _signUp() async {
+    final user = await _auth.signUPUser(
+      emailController.text,
+      passwordController.text,
+      fullnameController.text,
+    );
+
+    if (user != null) {
+      log("User Created Successfully");
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const UserSignInPage()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +67,7 @@ class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
                 children: [
                   const Text(
                     'Create an account',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                   kHeight(10),
                   const Text(
@@ -66,46 +95,34 @@ class _SignUpOneFieldWidgetState extends State<SignUpOneFieldWidget> {
                 hintText: 'Email address',
                 controller: emailController,
                 validator: (val) {
-                  // if (!RegExp(emailRegexPattern).hasMatch(val!) ||
-                  //     val.isEmpty) {
-                  //   return 'Enter a valid email';
-                  // }
-                  // return null;
-                },
-              ),
-              kHeight(20),
-
-              // Phone number field
-              CustomTxtFormField(
-                hintText: 'Phone number',
-                controller: phoneNumberController,
-                validator: (val) {
-                  if (val!.length < 10) {
-                    return 'Enter a valid phone number';
+                  if (!RegExp(emailRegexPattern).hasMatch(val!) ||
+                      val.isEmpty) {
+                    return 'Enter a valid email';
                   }
                   return null;
                 },
               ),
               kHeight(20),
 
-              // Account type field (assuming this field is now unnecessary)
-              // You might want to include the account type selection UI here
+              // Phone number field
+              CustomTxtFormField(
+                hintText: 'Password',
+                controller: passwordController,
+                validator: (val) {
+                  if (val!.length < 10) {
+                    return 'Enter a valid password';
+                  }
+                  return null;
+                },
+              ),
+              kHeight(20),
 
-              // Continue button
               CustomButton(
-                buttonText: 'Continue',
+                buttonText: 'Sign Up',
                 onPressed: () {
                   FocusScope.of(context).unfocus();
                   if (formKey.currentState!.validate()) {
-                    nextScreen(
-                      context,
-                      UserSignUpPageTwo(
-                        email: emailController.text,
-                        accountType: accountTypeController.text, // Update to use the controller's text
-                        fullName: fullnameController.text,
-                        phoneNo: phoneNumberController.text,
-                      ),
-                    );
+                    _signUp();
                   }
                 },
               ),
