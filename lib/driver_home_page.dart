@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:machine_task_2/db/route_db.dart';
 import 'package:machine_task_2/models/route.dart';
-import 'package:machine_task_2/route_details_screen.dart';
+import 'package:machine_task_2/route_detail_screen_one.dart';
 
 class DriverHomePage extends StatefulWidget {
   const DriverHomePage({super.key});
@@ -84,7 +84,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>  RouteDetailsScreen(route: driverRoute!),
+                          builder: (context) =>  RouteDetailScreenOne(route: driverRoute!),
                         ),
                       );
                     },

@@ -9,6 +9,8 @@ class StoreListScreen extends StatelessWidget {
     //     id: '2', name: 'Store B', address: '456 Elm St', group: 'Group 2'),
   ];
 
+  StoreListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

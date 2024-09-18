@@ -81,7 +81,7 @@ class _RetailShopScreenState extends State<RetailShopScreen> {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('age: ${shop.address}'),
+                      Text('address: ${shop.address}'),
                       Text('Contact no: ${shop.contact}'),
                     ],
                   ),
@@ -93,7 +93,7 @@ class _RetailShopScreenState extends State<RetailShopScreen> {
                         onPressed: () {
                           // Navigate to edit driver page
 
-                          _showRouteDialog(context, null);
+                          _showRouteDialog(context, shop);
                         },
                       ),
                       IconButton(

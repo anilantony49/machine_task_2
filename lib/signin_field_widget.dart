@@ -34,34 +34,33 @@ class _SignInFieldWidgetState extends State<SignInFieldWidget> {
   }
 
   Future<void> _login() async {
-    if (!mounted) return; // Check if the widget is still mounted
+    // if (!mounted) return; // Check if the widget is still mounted
 
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
 
     final user =
         await _auth.logInUser(emailController.text, passwordController.text);
 
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-
-      if (user != null) {
-        log("User Logged In");
-        if (emailController.text == 'admin@gmail.com' &&
-            passwordController.text == '1234567890') {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()));
-        } else {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const DriverHomePage()));
-        }
+    // if (mounted) {
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // }
+    if (user != null) {
+      log("User Logged In");
+      if (emailController.text == 'admin@gmail.com' &&
+          passwordController.text == '1234567890') {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Login failed")));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const DriverHomePage()));
       }
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Login failed")));
     }
   }
 
