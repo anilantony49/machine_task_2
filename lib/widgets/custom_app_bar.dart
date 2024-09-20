@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:machine_task_2/icons.dart';
+import 'package:machine_task_2/utils/icons.dart';
 
 class CustomAppbar {
   static AppBar show(BuildContext context, enableIcon) {

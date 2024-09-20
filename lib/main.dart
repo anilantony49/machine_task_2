@@ -1,22 +1,23 @@
 import 'dart:async';
-
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:machine_task_2/driver_home_page.dart';
-import 'package:machine_task_2/home_page.dart';
+import 'package:machine_task_2/provider/driver_home_provider.dart';
+import 'package:machine_task_2/provider/driver_provider.dart';
+import 'package:machine_task_2/provider/retail_shop_provider.dart';
+import 'package:machine_task_2/provider/route_detail_provider.dart';
+import 'package:machine_task_2/provider/sign_in_provider.dart';
+import 'package:machine_task_2/provider/sign_up_provider.dart';
+import 'package:machine_task_2/provider/splash_provider.dart';
+import 'package:machine_task_2/screens/admin/home_page.dart';
 import 'package:machine_task_2/models/authentication.dart';
 import 'package:machine_task_2/models/driver.dart';
 import 'package:machine_task_2/models/route.dart';
 import 'package:machine_task_2/models/store.dart';
-import 'package:machine_task_2/on_boarding_page.dart';
-import 'package:machine_task_2/splash_screen.dart';
-import 'package:machine_task_2/tab_bar_widget.dart';
-import 'package:machine_task_2/user_sign_in_page.dart';
-import 'package:machine_task_2/user_sign_up/user_signup_one.dart';
+import 'package:machine_task_2/screens/splash_screen/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,22 +38,33 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          textTheme: GoogleFonts.aBeeZeeTextTheme(),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return const HomePage();
-              } else {
-                return const UserSignInPage();
-              }
-            }));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SplashProvider()),
+        ChangeNotifierProvider(create: (context) => SignInProvider()),
+        ChangeNotifierProvider(create: (context) => SignUpProvider()),
+        ChangeNotifierProvider(create: (context) => RetailShopProvider()),
+        ChangeNotifierProvider(create: (context) => DriverProvider()),
+        ChangeNotifierProvider(create: (context) => DriverHomeProvider()),
+        ChangeNotifierProvider(create: (context) => RouteDetailProvider()),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            textTheme: GoogleFonts.aBeeZeeTextTheme(),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return const HomePage();
+                } else {
+                  return const SplashPage();
+                }
+              })),
+    );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -33,17 +32,13 @@ class CustomButton extends StatelessWidget {
                   ),
                 ),
               )
-            : FadeInUp(
-                delay: const Duration(milliseconds: 400),
-                duration: const Duration(milliseconds: 1000),
-                child: Text(
-                  buttonText,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
+            : Text(
+              buttonText,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
               ),
+            ),
       ),
     );
   }
